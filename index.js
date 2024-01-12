@@ -1,7 +1,8 @@
 // 1. Définir les classes des personnages
 // Créez les classes pour chaque type de personnage (Fighter, Paladin, Monk, Berzerker, Assassin), étendant la classe Character avec les attributs et méthodes spécifiques à chaque classe.
 class Character {
-  constructor(name, hp, attack, mana, status, specialHitCost) {
+  constructor(cname,name, hp, attack, mana, status, specialHitCost) {
+    this.cname = cname
     this.name = name;
     this.hp = hp;
     this.attack = attack;
@@ -81,7 +82,7 @@ class Character {
 
 class Fighter extends Character {
   constructor(name) {
-    super(name, 12, 4, 40, "alive", 20);
+    super("fighter", name, 12, 4, 40, "alive", 20);
     this.levelShield = 0;
     this.levelShieldResistance = 0;
     this.attackbase = this
@@ -104,7 +105,7 @@ class Fighter extends Character {
 
 class Paladin extends Character {
   constructor(name) {
-    super(name,16,3,160,"alive", 40);
+    super("paladin", name,16,3,160,"alive", 40);
   }
   specialHit(player) {
     if (this.mana >= this.specialHitCost) {
@@ -124,7 +125,7 @@ class Paladin extends Character {
 
 class Monk extends Character {
   constructor(name) {
-    super(name, 8, 2, 200, "alive", 25);
+    super("monk", name, 8, 2, 200, "alive", 25);
   }
   specialHit(player) {
     if (this.mana >= this.specialHitCost) {
@@ -140,7 +141,7 @@ class Monk extends Character {
 
 class Berzerker extends Character {
   constructor(name) {
-    super(name, 10, 4, 0, "alive", 0);
+    super("berzerker", name, 10, 4, 0, "alive", 0);
     this.hpbase = this.hp;
   }
   specialHit(player) {
@@ -158,7 +159,7 @@ class Berzerker extends Character {
 
 class Assassin extends Character {
   constructor(name) {
-    super(name, 5, 2, 40, "alive", 40);
+    super("assassin", name, 5, 2, 40, "alive", 40);
   }
 
   specialHit(player) {
@@ -175,4 +176,40 @@ class Assassin extends Character {
   }
 }
 
-export { Fighter, Paladin, Monk, Berzerker, Assassin };
+class Wizard extends Character {
+  constructor(name) {
+    super("wizard", name, 10, 2, 200, "alive", 2);
+  }
+
+  specialHit(player) {
+    if (this.mana >= 25) {
+      console.log(`${this.name} uses Fireball!`);
+      this.mana -= 25;
+      this.dealDamage(7, player);
+    } else {
+      console.log(`${this.name} doesn't have enough mana to use Fireball.`);
+    }
+  }
+}
+
+class AncientGuardian extends Character {
+  constructor(name) {
+    super("ancientguardian", name, 20, 3, 50, "alive", 25);
+    this.levelshield = 15;
+  }
+  specialHit() {
+    if (this.mana >= 25) {
+      console.log(`${this.name} uses Stone Shield!`);
+      this.mana -= 25;
+    } else {
+      console.log(`${this.name} doesn't have enough mana to use Stone Shield.`);
+    }
+  }
+}
+
+
+  
+
+
+
+export { Fighter, Paladin, Monk, Berzerker, Assassin, Wizard, AncientGuardian };
